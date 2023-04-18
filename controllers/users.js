@@ -18,7 +18,7 @@ const login = (req, res, next) => {
       );
       res.status(200).send({ token });
     })
-    /* .catch(next); */
+    .catch(next);
 };
 
 const getUser = (req, res, next) => {
