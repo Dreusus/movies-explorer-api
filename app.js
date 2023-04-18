@@ -8,6 +8,7 @@ const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
+const { errorHandler } = require('./errors/error-handler');
 
 const { PORT, BASE_PATH, DB_URL } = process.env;
 const { requestLogger, errorLogger } = require('./middlewares/logger');
@@ -36,18 +37,7 @@ app.use('*', auth, (req, res, next) => {
 
 app.use(errorLogger);
 app.use(errors());
-
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res
-    .status(statusCode)
-    .send({
-      message: statusCode === 500
-        ? 'На сервере произошла ошибка'
-        : message,
-    });
-  next();
-});
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`app listening on port - http://${BASE_PATH}:${PORT}`);
