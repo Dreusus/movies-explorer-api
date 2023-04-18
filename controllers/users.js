@@ -5,7 +5,7 @@ const BadRequestError = require('../errors/bad-req-err');
 const ConflictError = require('../errors/conflict-err');
 const NotFoundError = require('../errors/not-found-err');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { NODE_ENV, JWT_SECRET = 'dev-secret' } = process.env;
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -18,7 +18,7 @@ const login = (req, res, next) => {
       );
       res.status(200).send({ token });
     })
-    .catch(next);
+    /* .catch(next); */
 };
 
 const getUser = (req, res, next) => {
