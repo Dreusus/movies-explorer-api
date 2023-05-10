@@ -7,7 +7,7 @@ const getMovies = (req, res, next) => {
   const owner = req.user._id;
   Movie.find({ owner })
     .then((movies) => {
-      res.status(201).send({ movies });
+      res.status(201).send(movies);
     })
     .catch(next);
 };
@@ -43,7 +43,7 @@ const postMovie = (req, res, next) => {
     nameEN,
   })
     .then((movie) => {
-      res.status(201).send({ movie });
+      res.status(201).send(movie);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
